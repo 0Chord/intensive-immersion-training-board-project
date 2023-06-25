@@ -1,9 +1,21 @@
 spring:
   application:
     name: command-service
-
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/intensive_immersion_training_board_db
+    username: root
+    password: 1q2w3e4r!
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 0
+
 
 eureka:
   instance:
