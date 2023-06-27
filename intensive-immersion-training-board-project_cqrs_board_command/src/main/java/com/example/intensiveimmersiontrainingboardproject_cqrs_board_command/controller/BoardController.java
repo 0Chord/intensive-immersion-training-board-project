@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.dto.BoardDto;
+import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.dto.UpdateBoardDto;
 import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -38,14 +38,27 @@ public class BoardController {
 	}
 
 	@GetMapping("/delete-board/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id){
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		System.out.println("BoardController.delete");
-		try{
+		try {
 			boardService.deleteBoard(id);
-		}catch (Exception e){
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
 
 		return ResponseEntity.ok("SUCCESS");
+	}
+
+	@PostMapping("/update-board/{id}")
+	public ResponseEntity<?> update(@RequestBody @Validated UpdateBoardDto updateBoardDto,@PathVariable Long id) {
+		try {
+			boardService.updateTitleAndContent(id, updateBoardDto.getTitle(),
+				updateBoardDto.getContent());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+
+		return ResponseEntity.ok("SUCCESS");
+
 	}
 }

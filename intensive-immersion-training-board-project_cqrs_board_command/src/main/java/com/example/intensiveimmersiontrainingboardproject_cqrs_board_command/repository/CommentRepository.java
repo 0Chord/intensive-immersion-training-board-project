@@ -1,0 +1,2 @@
+package com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.repository;public interface CommentRepository {
+}

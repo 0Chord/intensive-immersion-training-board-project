@@ -1,0 +1,2 @@
+package com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.service;public class CommentServiceImpl {
+}
