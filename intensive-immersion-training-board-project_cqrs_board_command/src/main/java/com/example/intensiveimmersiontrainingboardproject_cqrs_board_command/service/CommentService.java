@@ -7,9 +7,8 @@ import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.dom
 import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.dto.CommentDto;
 
 public interface CommentService {
-	void save(CommentDto commentDto);
+	void save(Long id,CommentDto commentDto) throws Exception;
 
-	List<Comment> findAllByBoardId(Board board);
 
-	void deleteComment(Long id);
+	void deleteComment(Long id) throws Exception;
 }

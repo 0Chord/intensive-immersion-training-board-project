@@ -12,5 +12,5 @@ public class CommentDto {
 	private String nickname;
 	private String comment;
 	private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-	private Board board;
+	private String modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM>dd HH:mm"));
 }

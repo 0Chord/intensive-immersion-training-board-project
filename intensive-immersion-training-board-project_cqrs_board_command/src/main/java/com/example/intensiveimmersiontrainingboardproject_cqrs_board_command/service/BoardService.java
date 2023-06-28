@@ -1,5 +1,8 @@
 package com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.service;
 
+import java.util.Optional;
+
+import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.domain.Board;
 import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.dto.BoardDto;
 
 public interface BoardService {
@@ -7,4 +10,6 @@ public interface BoardService {
 	void deleteBoard(Long id) throws Exception;
 
 	void updateTitleAndContent(Long id, String title,String content) throws Exception;
+
+	Optional<Board> findBoard(Long id);
 }

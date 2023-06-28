@@ -10,16 +10,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "comments")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@ToString
 public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +36,9 @@ public class Comment {
 	@Column(name = "created_date")
 	@CreatedDate
 	private String createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	private String modifiedDate;
 	@ManyToOne
 	@JoinColumn(name = "board_id")
 	private Board board;

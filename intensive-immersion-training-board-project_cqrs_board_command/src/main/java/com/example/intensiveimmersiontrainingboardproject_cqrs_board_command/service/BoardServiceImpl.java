@@ -1,5 +1,7 @@
 package com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +21,8 @@ public class BoardServiceImpl implements BoardService {
 	public void save(BoardDto boardDto) throws Exception {
 		try {
 			Board boardEntity = Board.builder().title(boardDto.getTitle()).content(boardDto.getContent())
-				.createdDate(boardDto.getCreatedDate()).nickname(boardDto.getNickname())
+				.createdDate(boardDto.getCreatedDate()).nickname(boardDto.getNickname()).modifiedDate(
+					boardDto.getModifiedDate())
 			.build();
 			boardRepository.save(boardEntity);
 		} catch (Exception e) {
@@ -49,5 +52,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
+	@Override
+	public Optional<Board> findBoard(Long id) {
+		return boardRepository.findBoardById(id);
+	}
 
 }

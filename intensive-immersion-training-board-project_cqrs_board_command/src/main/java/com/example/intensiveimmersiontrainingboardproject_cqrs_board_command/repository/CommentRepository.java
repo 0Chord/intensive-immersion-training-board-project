@@ -8,7 +8,7 @@ import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.dom
 import com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.domain.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, String> {
-	List<Comment> findCommentsByBoard(Board board);
+	List<Comment> findCommentsByBoardId(Long id);
 
 	void deleteCommentById(Long id);
 }

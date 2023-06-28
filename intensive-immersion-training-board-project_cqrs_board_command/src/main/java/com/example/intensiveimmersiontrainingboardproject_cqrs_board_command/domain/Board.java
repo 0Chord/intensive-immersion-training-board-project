@@ -1,5 +1,7 @@
 package com.example.intensiveimmersiontrainingboardproject_cqrs_board_command.domain;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,12 +38,16 @@ public class Board {
 	@Column(name = "created_date")
 	@CreatedDate
 	private String createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	private String modifiedDate;
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Comment> comments;
 
 	public void updateTitleAndContent(String title,String content) {
 		this.title = title;
 		this.content = content;
+		this.modifiedDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
 	}
 
 }

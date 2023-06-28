@@ -17,27 +17,30 @@ import lombok.RequiredArgsConstructor;
 public class CommentServiceImpl implements CommentService {
 
 	private final CommentRepository commentRepository;
-
+	private final BoardService boardService;
 	@Override
-	public void save(CommentDto commentDto) {
+	public void save(Long id, CommentDto commentDto) throws Exception {
+		Board board = boardService.findBoard(id).orElse(null);
+		if(board == null){
+			throw new Exception("게시글을 찾을 수 없습니다.");
+		}
 		Comment comment = Comment.builder()
 			.nickname(commentDto.getNickname())
 			.comment(commentDto.getComment())
 			.createdDate(
 				commentDto.getCreatedDate())
-			.board(commentDto.getBoard())
+			.board(board)
 			.build();
 		commentRepository.save(comment);
 	}
 
 	@Override
-	public List<Comment> findAllByBoardId(Board board) {
-		return commentRepository.findCommentsByBoard(board);
-	}
-
-	@Override
 	@Transactional
-	public void deleteComment(Long id) {
-		commentRepository.deleteCommentById(id);
+	public void deleteComment(Long id) throws Exception {
+		try{
+			commentRepository.deleteCommentById(id);
+		}catch (Exception e){
+			throw new Exception("댓글이 존재하지 않습니다.");
+		}
 	}
 }
