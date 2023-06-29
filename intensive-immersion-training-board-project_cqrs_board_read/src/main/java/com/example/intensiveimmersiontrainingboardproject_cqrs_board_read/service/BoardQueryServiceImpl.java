@@ -26,6 +26,7 @@ public class BoardQueryServiceImpl implements BoardQueryService {
 				.id(board.getId())
 				.content(board.getContent())
 				.title(board.getTitle())
+				.createdAt(board.getCreatedDate())
 				.build();
 			return boardDto;
 		}
@@ -34,6 +35,6 @@ public class BoardQueryServiceImpl implements BoardQueryService {
 
 	@Override
 	public List<Board> findAll() {
-		return boardRepository.findAll();
+		return boardRepository.findAllByOrderByIdDesc();
 	}
 }

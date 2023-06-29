@@ -11,5 +11,5 @@ import com.example.intensiveimmersiontrainingboardproject_cqrs_board_read.domain
 @Repository
 public interface BoardRepository extends JpaRepository<Board, String> {
 	Optional<Board> findBoardById(Long id);
-	List<Board> findAll();
+	List<Board> findAllByOrderByIdDesc();
 }

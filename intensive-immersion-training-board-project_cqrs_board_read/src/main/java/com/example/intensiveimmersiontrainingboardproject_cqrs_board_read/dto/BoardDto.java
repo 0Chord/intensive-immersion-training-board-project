@@ -9,4 +9,5 @@ public class BoardDto {
 	private Long id;
 	private String title;
 	private String content;
+	private String createdAt;
 }
