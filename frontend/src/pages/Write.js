@@ -1,6 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -45,6 +45,7 @@ function Write() {
     const [Title, setTitle] = useState("");
     const [Content, setContent] = useState("");
     const [Nickname, setNickname] = useState("");
+    const [Password, setPassword] = useState("");
     const navigator = useNavigate();
 
     const onTitleHandler = (event) => {
@@ -59,12 +60,17 @@ function Write() {
         setNickname(event.currentTarget.value);
     };
 
+    const onPasswordHandler = (event) => {
+        setPassword(event.currentTarget.value);
+    }
+
     const onSubmitHandler = (event) => {
         event.preventDefault();
         let data = {
             title: Title,
             content: Content,
             nickname: Nickname,
+            password: Password
         };
 
         axios
@@ -101,6 +107,8 @@ function Write() {
                     value={Nickname}
                     placeholder="닉네임"
                 />
+                <Label>비밀번호</Label>
+                <Input onChange={onPasswordHandler} type={"password"} value={Password} placeholder={"비밀번호"}/>
                 <Button type="submit">저장하기</Button>
             </Form>
         </div>

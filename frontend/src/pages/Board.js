@@ -118,6 +118,7 @@ function Board() {
     const [Comment, setComment] = useState([]);
     const [Ment, setMent] = useState("");
     const [Nickname, setNickname] = useState("");
+    const [Password, setPassword] = useState("");
 
     const onMentHandler = (event) => {
         setMent(event.currentTarget.value);
@@ -126,6 +127,10 @@ function Board() {
     const onNicknameHandler = (event) => {
         setNickname(event.currentTarget.value);
     };
+
+    const onPasswordHandler = (event) => {
+        setPassword(event.currentTarget.value)
+    }
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
@@ -182,6 +187,24 @@ function Board() {
         header: ["번호", "댓글", "닉네임", "게시일"],
     };
 
+    const onDeleteSubmitHandler = (event) => {
+        event.preventDefault();
+        let data = {
+            password: Password
+        };
+
+        axios
+            .post(`/command-service/api/v1/board/delete-board/${params}`, data)
+            .then((response) => {
+                console.log(response);
+                navigator("/");
+            })
+            .catch((error) => {
+                window.location.reload();
+                console.error(error);
+            });
+    };
+
     return (
         <Container>
             <BoardContainer>
@@ -191,7 +214,15 @@ function Board() {
                 </BoardHeader>
                 <BoardTitle value={Board.title} readOnly/>
                 <BoardContent>{Board.content}</BoardContent>
-                <Button onClick={deleteBoard}>삭제</Button>
+                <form onSubmit={onDeleteSubmitHandler}>
+                    <input value={Password}
+                           type="password"
+                           onChange={onPasswordHandler}
+                           placeholder="비밀번호"/>
+                    <CommentDeleteButton>
+                        삭제
+                    </CommentDeleteButton>
+                </form>
             </BoardContainer>
 
             <CommentTable>
@@ -211,9 +242,7 @@ function Board() {
                             <CommentTableCell>{comment.nickname}</CommentTableCell>
                             <CommentTableCell>{comment.createdDate}</CommentTableCell>
                             <CommentTableCell>
-                                <CommentDeleteButton
-                                    onClick={() => onDeleteComment(comment.id)}
-                                >
+                                <CommentDeleteButton>
                                     삭제
                                 </CommentDeleteButton>
                             </CommentTableCell>
